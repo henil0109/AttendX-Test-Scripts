@@ -59,7 +59,7 @@ Concept notes:
 | 22 | `git add login_test.py<br>git diff --cached --stat` | Stage and review | login_test.py \| 12 +++++++++++- / 1 file changed, 11 insertions(+), 1 deletion(-) | Only login_test.py is staged. |
 | 23 | `git commit -m "Add empty-credential login validation"` | Second commit | [main 078a96e] Add empty-credential login validation / 1 file changed, 11 insertions(+), 1 deletion(-) | Second commit created. |
 | 24 | `git push` | Push second commit | 8892f49..078a96e  main -> main | Verified: git status -sb showed ## main...origin/main and ls-remote showed 078a96e. |
-| 25 | `(GitHub web) README.md > Edit > add 'Version Control Workflow' > Commit directly to main` | Remote change made on GitHub | Commit 'Document the shared Git workflow' (40c07e4) created on GitHub; see evidence E07 | Remote now has a commit the local repo does not have. |
+| 25 | `(GitHub web) README.md > Edit > add 'Version Control Workflow' > Commit directly to main` | Remote change made on GitHub | Commit 'Document the shared Git workflow' (40c07e4) created on GitHub; see evidence E04 | Remote now has a commit the local repo does not have. |
 | 26 | `git pull --ff-only origin main` | Download the GitHub edit safely | 078a96e..40c07e4  main -> origin/main / Updating 078a96e..40c07e4 / Fast-forward / README.md \| 3 +++ / 1 file changed, 3 insertions(+) | Fast-forward pull succeeded; histories had not diverged. |
 | 27 | `git status` | Confirm synced | Your branch is up to date with 'origin/main'. nothing to commit, working tree clean | Local equals remote. |
 | 28 | `findstr /n /c:"Version Control Workflow" README.md` | Confirm section is in local file | 51:## Version Control Workflow | The GitHub edit is present locally. |
@@ -77,7 +77,8 @@ Final history is shown by `git log --oneline --decorate` after the last commit a
 | 078a96e | Add empty-credential login validation | Henil Patel <patelhenil0109@gmail.com> | login_test.py (+11, -1) | Added input validation and a test for empty/None credentials. |
 | 40c07e4 | Document the shared Git workflow | HENIL (GitHub web, noreply address) | README.md (+3) | Made on GitHub using the Edit button, then pulled locally. |
 | 00227d9 | Add GitHub repository URL to README | Henil Patel <patelhenil0109@gmail.com> | README.md (+1, -1) | Replaced the URL placeholder with the real repository URL. |
-| (see git log) | Add observation log, evidence index and report | Henil Patel <patelhenil0109@gmail.com> | OBSERVATION_LOG.md, evidence/  | Practical record files. Its hash is shown by git log (it cannot name itself). |
+| 16de81f | Add observation log, evidence index and practical report | Henil Patel <patelhenil0109@gmail.com> | OBSERVATION_LOG.md, README-edit screenshot + evidence index, report .docx (+127) | Practical record files, pushed to GitHub. |
+| (see git log) | Add final evidence screenshots and updated report | Henil Patel <patelhenil0109@gmail.com> | evidence/ screenshots, OBSERVATION_LOG.md, report .docx | Final record commit; its own hash can be read from git log (a commit cannot name itself). |
 
 ## 6. Observations and conclusion
 Git tracks every change to the test scripts as a snapshot (commit) made in three steps: edit in the working tree, stage with git add, then commit. Each commit keeps an author, message and hash, so the full history can be reviewed. GitHub holds the shared remote copy: git push uploads local commits, and an edit made on the GitHub website creates a commit that exists only on the remote. git pull --ff-only brought that commit into the local copy without creating merge commits and refused to proceed if histories had diverged, which keeps the three QA engineers synchronised safely. Note: the tests use simulated services and do not connect to a real or production AttendX application.
@@ -90,20 +91,15 @@ Git tracks every change to the test scripts as a snapshot (commit) made in three
 - [x] Initial commit and subsequent commit - 8892f49 and 078a96e
 - [x] Successful push - Both pushes verified with git ls-remote
 - [x] Direct GitHub edit and successful pull - 40c07e4 pulled with fast-forward
-- [x] Commit history - git log output in section 4/5
-- [ ] Evidence screenshots - Only files that exist in evidence/ are listed below
+- [x] Commit history - git log output in sections 5 and 6
+- [x] Evidence screenshots - 5 genuine screenshots (E01-E05) in evidence/; other steps are evidenced by the real command outputs in section 5
 - [x] Observation log - OBSERVATION_LOG.md
 
 ## 8. Evidence index
 | ID | File | Shows | Status |
 |---|---|---|---|
-| E01 | `evidence/E01_git_setup.png` | Git version and identity (git --version, git config) | NOT YET CAPTURED |
-| E02 | `evidence/E02_project_files.png` | VS Code Explorer showing AttendX-Test-Scripts files | NOT YET CAPTURED |
-| E03 | `evidence/E03_initial_status.png` | Initial git status with untracked files | NOT YET CAPTURED |
-| E04 | `evidence/E04_first_commit.png` | git add, git status, git commit output | NOT YET CAPTURED |
-| E05 | `evidence/E05_github_push.png` | Push output and GitHub page showing the three files | NOT YET CAPTURED |
-| E06 | `evidence/E06_second_commit_push.png` | Second commit and push output | NOT YET CAPTURED |
-| E07 | `evidence/E07_github_readme_edit.png` | README on GitHub showing the added Version Control Workflow section | Captured |
-| E08 | `evidence/E08_git_pull.png` | git pull --ff-only output | NOT YET CAPTURED |
-| E09 | `evidence/E09_git_log.png` | git log --oneline --decorate | NOT YET CAPTURED |
-| E10 | `evidence/E10_test_results.png` | Both test scripts passing | NOT YET CAPTURED |
+| E01 | `evidence/E01_git_setup.png` | Git identity configured for this repository (git config --local --get-regexp "^user\.") | Captured |
+| E02 | `evidence/E02_github_push.png` | GitHub repository page after the pushes: main branch, 5 commits, all project files present | Captured |
+| E03 | `evidence/E03_github_commits.png` | GitHub commit history: all 5 commits, including the direct GitHub edit (Verified) | Captured |
+| E04 | `evidence/E04_github_readme_edit.png` | README.md on GitHub showing the Version Control Workflow section added through the GitHub web editor | Captured |
+| E05 | `evidence/E05_test_results.png` | Both automation scripts passing in the VS Code terminal (4 login tests, 5 attendance tests) | Captured |

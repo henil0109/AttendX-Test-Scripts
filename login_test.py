@@ -20,7 +20,9 @@ class FakeLoginService:
 
     def login(self, username, password):
         """Return a dict describing the login result."""
-        if self._users.get(username) == password and password is not None:
+        if not username or not password:
+            return {"success": False, "message": "Username and password are required", "user": None}
+        if self._users.get(username) == password:
             return {"success": True, "message": "Login successful", "user": username}
         return {"success": False, "message": "Invalid username or password", "user": None}
 
@@ -45,6 +47,14 @@ class LoginTest(unittest.TestCase):
         result = self.service.login("ghost_user", "Pass@123")
         self.assertFalse(result["success"])
         self.assertIsNone(result["user"])
+
+    def test_empty_credentials_are_rejected_with_validation_message(self):
+        for username, password in [("", ""), ("teacher01", ""), ("", "Pass@123"), (None, None)]:
+            with self.subTest(username=username, password=password):
+                result = self.service.login(username, password)
+                self.assertFalse(result["success"])
+                self.assertEqual(result["message"], "Username and password are required")
+                self.assertIsNone(result["user"])
 
 
 if __name__ == "__main__":

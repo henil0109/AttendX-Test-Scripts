@@ -47,3 +47,6 @@ git log --oneline --decorate    # view history
 
 ## GitHub repository
 URL: _to be added after the remote repository is created_
+
+## Version Control Workflow
+Git tracks local changes as commits on the QA engineer's machine, while GitHub stores the shared remote repository that all three engineers push to and pull from.
